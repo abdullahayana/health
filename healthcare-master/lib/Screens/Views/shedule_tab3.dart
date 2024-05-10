@@ -34,13 +34,13 @@ class _shedule_tab1State extends State<shedule_tab3>  {
             children: [
               const SizedBox(height: 20),
               shedule_card(
-                id:appointment["id"],
+                id:appointment["id"] ,
                 confirmation: "canceled",
-                mainText: "Dr. Mahmoud Atta",
-                subText: "Chardiologist",
+                mainText: appointment["doctor"]['name'],
+                subText: appointment["doctor"]['specialty'],
                 date: appointment["date"],
                 time: appointment["time"],
-                image: "assets/icons/male-doctor.png",
+                image: appointment["doctor"]['image'],
               ),
             ],
           );
