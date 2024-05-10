@@ -153,11 +153,11 @@ class _shedule_cardState extends State<shedule_card> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextButton(
-                          onPressed: () {
+                          onPressed: () { widget.confirmation == 'canceled' ?
+                          AppointmentApi.delete(widget.id)
+                              : AppointmentApi.update(widget.id);
                            setState(() {
-                             widget.confirmation == 'canceled' ?
-                                 Appointment.deleteAppointment(widget.id)
-                                 : Appointment.updateAppointment(widget.id);
+
                            });
                           },
                           style: TextButton.styleFrom(

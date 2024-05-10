@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:medical/Api/appointment.dart';
 import 'package:medical/Screens/Views/appointment.dart';
-import 'package:medical/Screens/Views/find_doctor.dart';
 import 'package:medical/Screens/Widgets/date_select.dart';
 import 'package:medical/Screens/Widgets/doctorList.dart';
-import 'package:medical/Screens/Widgets/list_doctor1.dart';
 import 'package:medical/Screens/Widgets/time_select.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class DoctorDetails extends StatefulWidget {
+  final doctor;
+ const DoctorDetails({super.key,required this.doctor,});
   @override
   _DoctorDetailsState createState() => _DoctorDetailsState();
 }
@@ -88,10 +87,10 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                 ),
                 doctorList(
                   distance: "800m away",
-                  image: "assets/icons/male-doctor.png",
-                  maintext: "Dr. Ahmed Ragab",
+                  image: widget.doctor['image'],
+                  maintext: widget.doctor['name'],
                   numRating: "4.7",
-                  subtext: "Cardiologist",
+                  subtext: widget.doctor['specialty'],
                 ),
                 const SizedBox(
                   height: 15,
@@ -113,8 +112,8 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                         ),
                         Text(
                           showExtendedText
-                              ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod elipss this is just a dummy text with some free lines do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam consectetur adipiscing elit. Sed euismod ..."
-                              : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod elipss this is just a dummy text with some free ... ",
+                              ?widget.doctor['about']
+                              : widget.doctor['about'],
                           style: GoogleFonts.poppins(
                             color: const Color.fromARGB(255, 37, 37, 37),
                             fontSize: 14.sp,
@@ -127,8 +126,8 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                           showExtendedText ? "Read less" : "Read more",
                           style: TextStyle(
                             color: showExtendedText
-                                ? Color.fromARGB(255, 1, 128, 111)
-                                : Color.fromARGB(255, 1, 128,
+                                ? const Color.fromARGB(255, 1, 128, 111)
+                                :  const Color.fromARGB(255, 1, 128,
                                     111), // Change color based on visibility
                           ),
                         ),
@@ -136,7 +135,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Padding(
@@ -257,7 +256,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                 context,
                                 PageTransition(
                                     type: PageTransitionType.rightToLeft,
-                                    child: appointment(time:timeSelect! ,date:dateSelect! ,)
+                                    child: Appointment(doctor: widget.doctor,time:timeSelect! ,date:dateSelect! ,)
                                 ));
 
                            }

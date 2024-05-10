@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:medical/Api/appointment.dart';
-import 'package:medical/Screens/Views/doctor_details_screen.dart';
 import 'package:medical/Screens/Widgets/shedule_card.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+
 class shedule_tab1 extends StatefulWidget  {
   const shedule_tab1({super.key});
 
@@ -22,7 +17,7 @@ class _shedule_tab1State extends State<shedule_tab1>  {
    loadAppointments();
   }
   void loadAppointments() async {
-    List<dynamic> fetchedAppointments = await Appointment.fetchAppointments('upcoming');
+    List<dynamic> fetchedAppointments = await AppointmentApi.get('upcoming');
     setState(() {
       appointments = fetchedAppointments;
     });
@@ -40,12 +35,12 @@ class _shedule_tab1State extends State<shedule_tab1>  {
              const SizedBox(height: 20),
               shedule_card(
                 id:appointment["id"] ,
-                confirmation: "Confirmed",
-                mainText: "Dr. Mahmoud Atta",
-                subText: "Chardiologist",
+                confirmation: "Upcomimg",
+                mainText: appointment["doctor"]['name'],
+                subText: appointment["doctor"]['specialty'],
                 date: appointment["date"],
                 time: appointment["time"],
-                image: "assets/icons/male-doctor.png",
+                image: appointment["doctor"]['image'],
               ),
             ],
           );

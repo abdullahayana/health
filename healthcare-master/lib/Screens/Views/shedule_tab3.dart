@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:medical/Api/appointment.dart';
-import 'package:medical/Screens/Views/doctor_details_screen.dart';
 import 'package:medical/Screens/Widgets/shedule_card.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+
 class shedule_tab3 extends StatefulWidget  {
   const shedule_tab3({super.key});
 
@@ -22,7 +17,7 @@ class _shedule_tab1State extends State<shedule_tab3>  {
     loadAppointments();
   }
   void loadAppointments() async {
-    List<dynamic> fetchedAppointments = await Appointment.fetchAppointments('cancel');
+    List<dynamic> fetchedAppointments = await AppointmentApi.get('cancel');
     setState(() {
       appointments = fetchedAppointments;
     });

@@ -2,13 +2,13 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 
-class Appointment{
+class AppointmentApi{
 
   //get
-   static Future<List<dynamic>> fetchAppointments(status) async {
+   static Future<List<dynamic>> get(status) async {
      String authId=FirebaseAuth.instance.currentUser!.uid;
 
-    final response = await http.get(Uri.parse('https://myapi-production-7cea.up.railway.app/api/v1/appointments?userId[eq]=$authId&status[eq]=$status'));
+    final response = await http.get(Uri.parse('http://healthdragon.atwebpages.com/api/v1/appointments?userId[eq]=$authId&status[eq]=$status'));
     if (response.statusCode == 200) {
        return json.decode(response.body)['data'];
 
@@ -17,10 +17,10 @@ class Appointment{
     }
   }
   // add
-  static Future<void> addAppointment(time,date) async {
+  static Future<void> add(time,date) async {
      String authId=FirebaseAuth.instance.currentUser!.uid;
      final response = await http.post(
-       Uri.parse('https://myapi-production-7cea.up.railway.app/api/v1/appointments'),
+       Uri.parse('http://healthdragon.atwebpages.com/api/v1/appointments'),
        body: jsonEncode({
          "userId": authId,
          "doctorId": "E49wH08QJ3dJpTfQmo3LNal7m5T2",
@@ -32,20 +32,12 @@ class Appointment{
          "Content-Type": "application/json",
        },
      );
-
-     if (response.statusCode == 201) {
-       // Appointment added successfully
-       // You can navigate to another page or show a success message
-     } else {
-       // Handle error, maybe show an error message
-       throw Exception('Failed to add appointment');
-     }
    }
   //update
-   static Future<void> updateAppointment(id) async {
+   static Future<void> update(id) async {
      String authId=FirebaseAuth.instance.currentUser!.uid;
      final response = await http.patch(
-       Uri.parse('https://myapi-production-7cea.up.railway.app/api/v1/appointments/$id'),
+       Uri.parse('http://healthdragon.atwebpages.com/api/v1/appointments/$id'),
        body: jsonEncode({
          'status':'cancel'
        }),
@@ -53,28 +45,12 @@ class Appointment{
          "Content-Type": "application/json",
        },
      );
-
-     if (response.statusCode == 200) {
-       // Appointment updated successfully
-       // You can navigate to another page or show a success message
-     } else {
-       // Handle error, maybe show an error message
-       throw Exception('Failed to update customer');
-     }
    }
    //delete
-   static Future<void> deleteAppointment(id) async {
+   static Future<void> delete(id) async {
      final response = await http.delete(
-         Uri.parse(  'https://myapi-production-7cea.up.railway.app/api/v1/appointments/$id'),
+         Uri.parse(  'http://healthdragon.atwebpages.com/api/v1/appointments/$id'),
      );
-
-     if (response.statusCode == 200) {
-       // Appointment deleted successfully
-       // You can navigate to another page or show a success message
-     } else {
-       // Handle error, maybe show an error message
-       throw Exception('Failed to delete customer');
-     }
    }
 }
 

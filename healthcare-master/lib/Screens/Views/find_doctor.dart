@@ -158,7 +158,7 @@ class find_doctor extends StatelessWidget {
                   context,
                   PageTransition(
                       type: PageTransitionType.rightToLeft,
-                      child: DoctorDetails()));
+                      child: DoctorDetails(doctor: [],)));
             },
             child: doctorList(
                 distance: "800m away",

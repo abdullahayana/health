@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:medical/Api/appointment.dart';
-import 'package:medical/Screens/Views/doctor_details_screen.dart';
-import 'package:medical/Screens/Views/find_doctor.dart';
 import 'package:medical/Screens/Widgets/doctorList.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class appointment extends StatelessWidget {
+class Appointment extends StatelessWidget {
   String time;
   String date;
-  appointment({super.key,required this.time, required this.date});
+  final doctor;
+  Appointment({super.key,required this.doctor,required this.time, required this.date});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +17,10 @@ class appointment extends StatelessWidget {
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
-            Navigator.pushReplacement(
-                context,
-                PageTransition(
-                    type: PageTransitionType.fade, child: DoctorDetails()));
+            // Navigator.pushReplacement(
+            //     context,
+            //     PageTransition(
+            //         type: PageTransitionType.fade, child: DoctorDetails()));
           },
           child: Container(
             height: 10,
@@ -116,7 +114,7 @@ class appointment extends StatelessWidget {
                             filterQuality: FilterQuality.high,
                           )),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Expanded(
@@ -131,7 +129,7 @@ class appointment extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
@@ -311,7 +309,7 @@ class appointment extends StatelessWidget {
                       "\$61.00",
                       style: GoogleFonts.poppins(
                           fontSize: 16.sp,
-                          color: Color.fromARGB(255, 4, 92, 58),
+                          color: const Color.fromARGB(255, 4, 92, 58),
                           fontWeight: FontWeight.w600),
                     ),
                   ],
@@ -338,7 +336,7 @@ class appointment extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
@@ -361,7 +359,7 @@ class appointment extends StatelessWidget {
                               fontStyle: FontStyle.italic,
                               fontSize: 17.sp,
                               fontWeight: FontWeight.w600,
-                              color: Color.fromARGB(255, 38, 39, 117)),
+                              color: const Color.fromARGB(255, 38, 39, 117)),
                         ),
                         Text(
                           "Change",
@@ -387,7 +385,7 @@ class appointment extends StatelessWidget {
                         Container(
                           height: MediaQuery.of(context).size.height * 0.06,
                           width: MediaQuery.of(context).size.width * 0.2100,
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -400,7 +398,7 @@ class appointment extends StatelessWidget {
                                       color: const Color.fromARGB(
                                           137, 56, 56, 56)),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 Text(
@@ -413,7 +411,7 @@ class appointment extends StatelessWidget {
                                 ),
                               ]),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Padding(
@@ -422,7 +420,7 @@ class appointment extends StatelessWidget {
                             height: MediaQuery.of(context).size.height * 0.06,
                             width: MediaQuery.of(context).size.width * 0.4300,
                             decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 2, 179, 149),
+                              color: const Color.fromARGB(255, 2, 179, 149),
                               borderRadius: BorderRadius.circular(30),
                             ),
                             child: Row(
@@ -430,16 +428,16 @@ class appointment extends StatelessWidget {
                                 children: [
                                 TextButton(
                                 onPressed: () {
-                                    Appointment.addAppointment(time,date);
+                                    AppointmentApi.add(time,date);
                           },
                             style: TextButton.styleFrom(
                               textStyle: GoogleFonts.poppins(
                                 fontSize: 15.sp,
                                 fontWeight: FontWeight.w600,
-                                color: Color.fromARGB(255, 61, 61, 61),
+                                color: const Color.fromARGB(255, 61, 61, 61),
                               ),
                             ),
-                            child: Text("Book",style: TextStyle(color: Colors.white),),
+                            child:const Text("Book",style: TextStyle(color: Colors.white),),
                           ),
                  ]),
                           ),

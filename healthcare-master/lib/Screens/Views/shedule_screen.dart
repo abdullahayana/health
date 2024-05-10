@@ -3,14 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:medical/Screens/Views/shedule_tab1.dart';
 import 'package:medical/Screens/Views/shedule_tab2.dart';
 import 'package:medical/Screens/Views/shedule_tab3.dart';
-import 'package:medical/Screens/Widgets/TabbarPages/tab1.dart';
-import 'package:medical/Screens/Widgets/TabbarPages/tab2.dart';
-import 'package:medical/Screens/Login-Signup/login.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class shedule_screen extends StatefulWidget {
-  const shedule_screen({Key? key}) : super(key: key);
+  const shedule_screen({super.key});
 
   @override
   _TabBarExampleState createState() => _TabBarExampleState();
@@ -60,7 +56,7 @@ class _TabBarExampleState extends State<shedule_screen>
         backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 00),
           child: Column(

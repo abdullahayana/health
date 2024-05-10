@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:medical/Api/doctor.dart';
 import 'package:medical/Screens/Views/doctor_details_screen.dart';
 import 'package:medical/Screens/Views/doctor_search.dart';
 import 'package:medical/Screens/Views/find_doctor.dart';
@@ -8,15 +9,33 @@ import 'package:medical/Screens/Widgets/banner.dart';
 import 'package:medical/Screens/Widgets/doctorList.dart';
 import 'package:medical/Screens/Widgets/list_doctor1.dart';
 import 'package:medical/Screens/Widgets/listicons.dart';
-import 'package:medical/Screens/Views/articlePage.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class Dashboard extends StatelessWidget {
+class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
 
   @override
+  State<Dashboard> createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
+  List<dynamic> doctors=[];
+  void initState() {
+    super.initState();
+    loadDoctors();
+  }
+  loadDoctors() async{
+
+    List<dynamic> fetchedDoctors = await DoctorApi.get();
+    setState(() {
+      doctors = fetchedDoctors;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -169,40 +188,33 @@ class Dashboard extends StatelessWidget {
             child: Container(
               height: 180,
               width: 400,
-              child: ListView(
+              child: ListView.builder(
                 physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
-                children: [
-                  //---------------------------------------2
-                  GestureDetector(
+                itemCount: doctors.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final doctor=doctors[index];
+                  return GestureDetector(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          PageTransition(
-                              type: PageTransitionType.rightToLeft,
-                              child: DoctorDetails()));
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.rightToLeft,
+                          child: DoctorDetails(doctor: doctor,),
+                        ),
+                      );
                     },
                     child: list_doctor1(
-                        distance: "130m Away",
-                        image: "assets/icons/male-doctor.png",
-                        maintext: "Dr. Mahmoud Atta",
-                        numRating: "4.7",
-                        subtext: "Chardiologist"),
-                  ),
-                  list_doctor1(
                       distance: "130m Away",
-                      image: "assets/icons/docto3.png",
-                      maintext: "Dr. Maria Elena",
+                      image: doctor['image'],
+                      maintext: doctor['name'],
                       numRating: "4.6",
-                      subtext: "Psychologist"),
-                  list_doctor1(
-                      distance: "2km away",
-                      image: "assets/icons/doctor2.png",
-                      maintext: "Dr. Stevi Jessi",
-                      numRating: "4.8",
-                      subtext: "Orthopedist"),
-                ],
+                      subtext: doctor['specialty'],
+                    ),
+                  );
+                },
               ),
+
             ),
           ),
           const SizedBox(
@@ -223,11 +235,7 @@ class Dashboard extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacement(
-                        context,
-                        PageTransition(
-                            type: PageTransitionType.rightToLeft,
-                            child: articlePage()));
+
                   },
                   child: Text(
                     "See all",
