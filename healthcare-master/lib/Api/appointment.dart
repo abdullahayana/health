@@ -17,13 +17,13 @@ class AppointmentApi{
     }
   }
   // add
-  static Future<void> add(time,date) async {
+  static Future<void> add(time,date,doctorId) async {
      String authId=FirebaseAuth.instance.currentUser!.uid;
      final response = await http.post(
        Uri.parse('http://healthdragon.atwebpages.com/api/v1/appointments'),
        body: jsonEncode({
          "userId": authId,
-         "doctorId": "E49wH08QJ3dJpTfQmo3LNal7m5T2",
+         "doctorId": doctorId,
          "time": time,
          "date": date,
          "status": "upcoming"
@@ -35,7 +35,6 @@ class AppointmentApi{
    }
   //update
    static Future<void> update(id) async {
-     String authId=FirebaseAuth.instance.currentUser!.uid;
      final response = await http.patch(
        Uri.parse('http://healthdragon.atwebpages.com/api/v1/appointments/$id'),
        body: jsonEncode({

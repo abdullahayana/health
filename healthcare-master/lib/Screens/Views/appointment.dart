@@ -428,7 +428,7 @@ class Appointment extends StatelessWidget {
                                 children: [
                                 TextButton(
                                 onPressed: () {
-                                    AppointmentApi.add(time,date);
+                                    AppointmentApi.add(time,date,doctor['id']);
                           },
                             style: TextButton.styleFrom(
                               textStyle: GoogleFonts.poppins(
