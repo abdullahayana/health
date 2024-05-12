@@ -41,6 +41,7 @@ class _shedule_tab1State extends State<shedule_tab3>  {
                 date: appointment["date"],
                 time: appointment["time"],
                 image: appointment["doctor"]['image'],
+                changeState: loadAppointments,
               ),
             ],
           );

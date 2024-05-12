@@ -11,6 +11,7 @@ class shedule_card extends StatefulWidget {
   final String date;
   final String time;
   final String confirmation;
+  final Function() changeState;
 
   shedule_card(
       {
@@ -20,7 +21,9 @@ class shedule_card extends StatefulWidget {
       required this.date,
       required this.confirmation,
       required this.time,
-      required this.image});
+      required this.image,
+      required this.changeState
+      });
 
   @override
   State<shedule_card> createState() => _shedule_cardState();
@@ -153,11 +156,12 @@ class _shedule_cardState extends State<shedule_card> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextButton(
-                          onPressed: () { widget.confirmation == 'canceled' ?
-                          AppointmentApi.delete(widget.id)
-                              : AppointmentApi.update(widget.id);
+                          onPressed: () {
                            setState(() {
-
+                             widget.confirmation == 'canceled' ?
+                             AppointmentApi.delete(widget.id)
+                                 : AppointmentApi.update(widget.id);
+                             widget.changeState();
                            });
                           },
                           style: TextButton.styleFrom(

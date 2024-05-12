@@ -22,6 +22,7 @@ class _shedule_tab1State extends State<shedule_tab1>  {
       appointments = fetchedAppointments;
     });
   }
+  @override
   Widget build(BuildContext context) {
 
     return Scaffold(
@@ -41,6 +42,7 @@ class _shedule_tab1State extends State<shedule_tab1>  {
                 date: appointment["date"],
                 time: appointment["time"],
                 image: appointment["doctor"]['image'],
+                changeState: loadAppointments,
               ),
             ],
           );
